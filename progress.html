@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Example loading page - JS 98,9% HTML 1,1%</title>
+		<script>
+/* settings */
+/* this you can edit settings */
+var delayS = 0.01; //delay in seconds
+var max = 100; // max % for progress
+/* system settings */
+/* please don't edit this system settings */
+var delayM = delayS*1000; //delay in seconds * 1000
+var time = delayM/max*10; //delay in ms / max % for progress
+var timeM = parseInt(time/60);//time in second / 60 seconds
+var timeH = parseInt(timeM/60);//time in minutes / 60 minutes
+var timeD = parseInt(timeH/24);//time in hour / 24
+/* functions */
+function showText() {
+	var p = document.getElementsByTagName("text");
+/*	var h1 = document.getElementsByTagName("h1");
+	var h2 = document.getElementsByTagName("h2");
+	var h3 = document.getElementsByTagName("h3");
+	var h4 = document.getElementsByTagName("h4");
+	var h5 = document.getElementsByTagName("h5");
+	var h6 = document.getElementsByTagName("h6");*/
+	for (let i=0;i<p.length;i++){
+		p[i].removeAttribute("Hidden");
+	}
+}
+function hideText() {
+	var p = document.getElementsByTagName("text");
+	for (let i=0;i<p.length;i++){
+		p[i].setAttribute("Hidden", "true");
+	}
+}
+function newCop() {
+	var progress = document.getElementsByTagName("progress");
+	hideText();
+	var load = document.getElementById("load");
+	var value = Number(progress[0].getAttribute('Value'))
+	if (value < max) {
+		progress[0].setAttribute('Value', value + 1);
+		hideText();
+//		console.log(value);
+	} else {
+		progress[0].setAttribute('Hidden', true);
+		load.setAttribute('Hidden', true);
+		showText();
+		//this you code
+	}
+}
+//Internal
+setInterval(
+  () => newCop(),
+  delayM
+);
+/* messages in console */
+console.log(time + "S");
+console.warn(timeD+"D"+(timeH-timeD*24)+"H"+(timeM-timeH*60)+"M"+(time-timeM*60)+"S")
+</script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	</head>
+	<body onload="hideText()">
+		<noscript>please unlock scripts for this page in you browser</noscript>
+		<h5 id="load">loading page...</h5>
+		<progress value="0" max="100"></progress>
+		<button onclick="newCop()" hidden>add one count</button>
+		<text>hi you see my text, you loag this page</text>
+	</body>
+</html>
